@@ -38,6 +38,41 @@ body::after{
 .lang-en .zh{display:none !important}
 .lang-en body, .lang-en{font-family:'Space Grotesk',sans-serif}
 
+
+
+/* ===== hero motion ===== */
+.hero{overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-bg::before{
+  content:"";position:absolute;inset:-8%;
+  background:
+    linear-gradient(to top,#0d0d0d 0%,rgba(13,13,13,.85) 12%,transparent 38%),
+    linear-gradient(90deg,rgba(13,13,13,.68) 0%,rgba(13,13,13,.28) 42%,rgba(13,13,13,.04) 100%),
+    radial-gradient(circle at 18% 45%,rgba(13,13,13,.75) 0%,rgba(13,13,13,.08) 38%,transparent 70%);
+  z-index:1;
+  pointer-events:none;
+}
+#colorBendsContainer{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0}
+#colorBendsContainer canvas{width:100%!important;height:100%!important;display:block}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 74% 28%,rgba(217,255,75,.14),transparent 24%),
+    radial-gradient(circle at 86% 58%,rgba(255,92,57,.10),transparent 18%),
+    radial-gradient(circle at 60% 74%,rgba(242,239,233,.06),transparent 26%);
+  mix-blend-mode:screen;
+  opacity:.72;
+  z-index:2;
+  pointer-events:none;
+  animation:galaxyPulse 9s ease-in-out infinite alternate;
+}
+@keyframes galaxyDrift{to{transform:scale(1.07) translate3d(-2.2%,1.4%,0)}}
+@keyframes galaxyPulse{to{opacity:.48;filter:blur(1px)}}
+.hero h1,.hero-kicker,.hero-sub,.hero-tagline{position:relative;z-index:1}
+.hero .scroll-cue{z-index:1}
+
+@media(max-width:720px){.hero-bg::before{background-position:66% center;opacity:.74}.hero-bg::after{opacity:.52}}
+
 /* cursor */
 .cursor{position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s;mix-blend-mode:difference}
 .cursor.hov{width:26px;height:26px;background:#fff}
@@ -47,7 +82,7 @@ body::after{
 .progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:8000}
 
 /* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:7000;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 4vw;mix-blend-mode:difference}
+nav{position:fixed;top:0;left:0;right:0;z-index:7000;display:flex;justify-content:flex-end;align-items:center;padding:1.1rem 4vw;mix-blend-mode:difference}
 .logo{font-family:Anton,'Noto Sans SC',sans-serif;font-size:1.15rem;letter-spacing:.06em;text-decoration:none;color:#fff}
 .logo em{font-style:normal;color:var(--accent)}
 .nav-r{display:flex;gap:1.3rem;align-items:center;flex-wrap:nowrap}
@@ -59,7 +94,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:7000;display:flex;justify-conten
 @media(max-width:720px){.nav-r a{display:none}}
 
 /* hero */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:0 4vw;position:relative}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:7rem 4vw 5.5rem;position:relative}
 .hero-kicker{display:flex;align-items:center;gap:.8rem;color:var(--dim);font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:2.2rem}
 .hero-kicker::before{content:"";width:42px;height:1px;background:var(--accent)}
 .hero h1{font-family:Anton,'Noto Sans SC',sans-serif;font-weight:400;text-transform:uppercase;line-height:.92;font-size:clamp(4rem,16vw,13.5rem);letter-spacing:.01em}
@@ -70,18 +105,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:7000;display:flex;justify-conten
 .hero h1 .stroke:hover{color:var(--accent);-webkit-text-stroke:2px var(--accent);transition:.3s}
 @keyframes rise{to{transform:translateY(0)}}
 .hero-sub{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-top:3rem;border-top:1px solid var(--line);padding-top:1.4rem}
-.hero-sub .left{font-size:clamp(1rem,2vw,1.35rem);max-width:560px;line-height:1.5}
+.hero-sub .left{font-size:clamp(1.1rem,1.7vw,1.35rem);max-width:640px;line-height:1.8;color:#b8b5ae}
 .rotator{color:var(--accent);font-weight:700;display:inline-block;min-width:7ch}
 .hero-sub .right{color:var(--dim);font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;text-align:right;line-height:1.9}
+.hero-tagline{position:relative;z-index:1;margin-top:2rem;color:var(--accent);font-size:.84375rem;letter-spacing:.03em;line-height:1.65;max-width:560px}
 .scroll-cue{position:absolute;bottom:2rem;left:4vw;color:var(--dim);font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;display:flex;gap:.7rem;align-items:center}
 .scroll-cue .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:bounce 1.6s infinite}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
 /* marquee */
-.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:1.1rem 0;background:var(--bg)}
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:.6rem 0;background:var(--bg)}
 .marquee .track{display:flex;width:max-content;animation:scrollX 28s linear infinite}
 .marquee:hover .track{animation-play-state:paused}
-.marquee span{font-family:Anton,'Noto Sans SC',sans-serif;text-transform:uppercase;font-size:clamp(1.3rem,3vw,2.2rem);white-space:nowrap;padding-right:2.5rem;color:var(--ink)}
+.marquee span{font-family:Anton,'Noto Sans SC',sans-serif;text-transform:uppercase;font-size:clamp(.75rem,1.4vw,1.1rem);white-space:nowrap;padding-right:1.6rem;color:var(--ink)}
 .marquee span i{font-style:normal;color:var(--accent);padding-right:2.5rem}
 .marquee.alt span{color:transparent;-webkit-text-stroke:1px var(--dim)}
 .marquee.alt span i{color:var(--accent2);-webkit-text-stroke:0}
@@ -89,6 +125,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:7000;display:flex;justify-conten
 
 /* sections */
 section{padding:9rem 4vw;position:relative}
+#timeline::before{content:"";position:absolute;top:0;left:0;right:0;height:6rem;background:linear-gradient(to bottom,#0d0d0d,transparent);pointer-events:none;z-index:1}
+#caps{padding-top:9rem}
+#beyond{padding-top:9rem}
 .sec-head{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:4rem;flex-wrap:wrap}
 .sec-num{font-family:Anton,sans-serif;color:var(--accent);font-size:1rem;letter-spacing:.1em}
 .sec-title{font-family:Anton,'Noto Sans SC',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(2.4rem,7vw,5.5rem);line-height:1.02}
@@ -100,21 +139,26 @@ section{padding:9rem 4vw;position:relative}
 .reveal.vis{opacity:1;transform:none}
 
 /* about */
-.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:5vw;align-items:start}
-.about-text{font-size:clamp(1.15rem,2.2vw,1.7rem);line-height:1.65;font-weight:300}
+.cp-stats-label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:1.2rem;margin-top:2rem;display:flex;align-items:center;gap:.8rem}
+.cp-stats-label::before{content:"";width:28px;height:1px;background:var(--accent);flex:none}
+.about-text{font-size:clamp(1rem,1.6vw,1.28rem);line-height:1.85;font-weight:300;max-width:860px;margin-top:4rem}
 .about-text strong{color:var(--accent);font-weight:500}
-.about-tag{margin-top:2rem;color:var(--dim);font-size:.92rem;letter-spacing:.06em;display:flex;align-items:center;gap:.8rem}
-.about-tag::before{content:"";width:34px;height:1px;background:var(--accent);flex:none}
-.stats{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--line);border-top:1px solid var(--line)}
-.stat{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.6rem 1.4rem;transition:background .35s}
+.about-tag{margin-top:1.8rem;color:var(--dim);font-size:.92rem;line-height:1.75;border-left:2px solid var(--accent);padding-left:1rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--line);border-top:1px solid var(--line);margin-bottom:3rem}
+.tl-co-label + .stats{margin-top:1.2rem}
+.stat{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:.9rem 1.2rem;transition:background .35s}
 .stat:hover{background:var(--accent);color:#0d0d0d}
 .stat:hover .lab{color:#0d0d0d}
-.stat .num{font-family:Anton,sans-serif;font-size:clamp(2rem,4vw,3.2rem);line-height:1}
-.stat .lab{color:var(--dim);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin-top:.55rem;line-height:1.5;transition:color .35s}
-@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.stat .num{font-family:Anton,sans-serif;font-size:clamp(1.5rem,2.5vw,2.1rem);line-height:1}
+.stat .lab{color:var(--dim);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.5rem;line-height:1.5;transition:color .35s}
+/* cred icon */
+.cp-icon{width:14px;height:14px;flex:none;display:flex;align-items:center;justify-content:center}
+.cp-icon svg{width:100%;height:100%;stroke:var(--accent);fill:none}
+@media(max-width:900px){.stats{grid-template-columns:1fr 1fr}}
 
 /* timeline */
-.tl-intro{color:var(--dim);max-width:520px;margin-bottom:1.6rem;line-height:1.8}
+#timeline{padding-top:9rem}
+.tl-intro{color:var(--dim);max-width:none;margin-bottom:1.6rem;line-height:1.8}
 .tl-hint{color:var(--accent);font-size:.8rem;letter-spacing:.12em;margin-bottom:1.4rem;display:flex;gap:.6rem;align-items:center}
 .tl-hint .arr{animation:bounce 1.6s infinite;display:inline-block}
 .tl{border-top:1px solid var(--line)}
@@ -141,7 +185,7 @@ section{padding:9rem 4vw;position:relative}
 .tl-body li:last-child{border-bottom:none}
 .tl-body li::before{content:"→";position:absolute;left:0;color:var(--accent)}
 .tl-body li b{color:var(--ink);font-weight:600}
-.tl-co-label{font-family:Anton,'Noto Sans SC',sans-serif;text-transform:uppercase;color:var(--dim);font-size:.8rem;letter-spacing:.2em;padding:2.6rem 0 0 1rem}
+.tl-co-label{font-family:Anton,'Noto Sans SC',sans-serif;text-transform:uppercase;color:var(--dim);font-size:1rem;letter-spacing:.2em;padding:2.6rem 0 0 1rem}
 @media(max-width:760px){
   .tl-row{grid-template-columns:1fr auto;gap:1rem}
   .tl-date{grid-column:1/-1}
@@ -152,9 +196,9 @@ section{padding:9rem 4vw;position:relative}
 /* capabilities */
 .caps{border-top:1px solid var(--line)}
 .cap{border-bottom:1px solid var(--line);padding:0 1rem;cursor:pointer;position:relative;overflow:hidden}
-.cap-row{display:flex;align-items:center;gap:2.5rem;padding:2.4rem 0;position:relative;z-index:2}
-.cap-num{font-family:Anton,sans-serif;color:var(--dim);font-size:1rem;min-width:3ch;transition:color .3s}
-.cap-name{font-family:Anton,'Noto Sans SC',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(1.8rem,5.5vw,4.2rem);line-height:1;transition:transform .45s cubic-bezier(.2,.7,.2,1),color .3s}
+.cap-row{display:flex;align-items:center;gap:1.6rem;padding:1.6rem 0;position:relative;z-index:2}
+.cap-num{font-family:Anton,sans-serif;color:var(--dim);font-size:.72rem;min-width:3ch;transition:color .3s;letter-spacing:.1em}
+.cap-name{font-family:Anton,'Noto Sans SC',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(1.5rem,4vw,3.2rem);line-height:1;transition:transform .45s cubic-bezier(.2,.7,.2,1),color .3s}
 .cap-name .zh{font-family:'Noto Sans SC',sans-serif;font-weight:900}
 .cap-arrow{margin-left:auto;font-size:clamp(1.5rem,3vw,2.4rem);color:var(--dim);transition:transform .45s,color .3s}
 .cap:hover .cap-name{transform:translateX(18px);color:var(--accent)}
@@ -167,6 +211,16 @@ section{padding:9rem 4vw;position:relative}
 .cap-tags span{border:1px solid var(--line);border-radius:999px;padding:.4rem 1rem;font-size:.78rem;letter-spacing:.08em;color:var(--dim);transition:.3s}
 .cap-tags span:hover{border-color:var(--accent);color:var(--accent)}
 @media(max-width:760px){.cap-body-in{grid-template-columns:1fr;padding-left:0}}
+
+/* credentials */
+.cred-row{margin:3rem 0 2.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:.9rem}
+.cred-label{color:var(--dim);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;flex:none}
+.cred-pill{display:inline-flex;align-items:center;gap:.65rem;border:1px solid rgba(217,255,75,.25);border-radius:999px;padding:.5rem 1.1rem;font-size:.8rem;transition:border-color .3s,background .3s}
+.cred-pill:hover{border-color:var(--accent);background:rgba(217,255,75,.06)}
+.cred-pill .cp-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.cred-pill .cp-name{color:var(--ink);font-weight:500}
+.cred-pill .cp-sep{color:var(--dim);margin:0 .1rem}
+.cred-pill .cp-by{color:var(--dim);font-size:.74rem}
 
 /* beyond */
 .beyond-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
@@ -205,7 +259,7 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
 <div class="progress" id="progress"></div>
 
 <nav>
-  <a class="logo" href="#top">Emily Hu</a>
+  
   <div class="nav-r">
     <a href="#about"><span class="zh">关于</span><span class="en">About</span></a>
     <a href="#timeline"><span class="zh">时间线</span><span class="en">Timeline</span></a>
@@ -217,80 +271,64 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
 </nav>
 
 <header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div id="colorBendsContainer"></div>
+  </div>
   <h1>
     <span class="row"><span>EMILY</span></span>
     <span class="row"><span class="stroke">HU<span style="color:var(--accent);-webkit-text-stroke:0">.</span></span></span>
   </h1>
   <div class="hero-sub">
     <div class="left">
-      <span class="zh">10 年+ 品牌与中国消费平台经验——从 0 到 1，从增长到盈利。从消费洞察到商业增长、留存与利润。<br>擅长 <span class="rotator" id="rotator">商务拓展</span></span>
-      <span class="en">10+ years across brands & consumer platforms in China — from zero to one, from growth to profit. From consumer insight to commercial growth, retention and margin.<br>Driven by <span class="rotator" id="rotatorEn">Business Development</span></span>
-    </div>
-    <div class="right">
-      <a class="co-link" href="https://classpass.com/" target="_blank" rel="noopener">ClassPass China</a> · <a class="co-link" href="https://bbdo.com/" target="_blank" rel="noopener">BBDO</a>
+      <span class="zh">拥有 10 年以上平台商业化与广告营销经验，横跨市场进入、整合营销、商务拓展、合作伙伴生态、客户体验、定价机制、运营效率与盈利能力建设。早期在 BBDO 服务高端品牌客户，积累品牌传播策略与整合营销实战经验。随后作为 ClassPass China 中国 1 号员工，主导业务从 0-1 市场进入到 17 城规模化扩张并实现盈利。</p><p class="zh rotator-line" style="margin-top:1.2rem">擅长 <span class="rotator" id="rotator">GTM 策略</span></span>
+      <span class="en">10+ years across platform monetization and brand marketing — spanning market entry, integrated marketing, business development, partnership ecosystems, customer experience, pricing mechanics, operational efficiency and profitability. Started at BBDO serving premium brand clients, building hands-on experience in brand strategy, consumer insight and integrated campaign execution. Joined ClassPass China as employee #1, leading the business from cold-start to 17-city scale and profitability.</p><p class="en rotator-line" style="margin-top:1.2rem">Driven by <span class="rotator" id="rotatorEn">GTM Strategy</span></span>
     </div>
   </div>
+  <div class="hero-tagline"><span class="zh">用数据校准商业判断，用体验沉淀品牌认知，用 AI 提升运营效率，把模糊机会推进成可持续的经营结果。</span><span class="en">Uses data to sharpen commercial judgment, experience to build brand equity, and AI to lift operational efficiency — converting ambiguous opportunities into sustainable business results.</span></div>
   <div class="scroll-cue"><span class="dot"></span><span class="zh">向下滚动</span><span class="en">Scroll</span></div>
 </header>
 
-<div class="marquee"><div class="track" id="mq1"></div></div>
-
-<section id="about">
-  <div class="sec-head reveal">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title"><span class="zh">个人简介</span><span class="en">Profile</span></h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p class="zh">拥有 <strong>10 年以上</strong>品牌与消费平台业务经验，横跨<strong>整合营销、商业增长、合作伙伴生态、客户成功与平台运营管理</strong>。早期在 BBDO 服务高端品牌客户，积累品牌广告、消费者行为和整合营销路径的实战经验；随后在 ClassPass China 作为<strong>中国 1 号员工</strong>，完整参与平台业务从 <strong>0-1 市场进入</strong>到规模化增长、再到<strong>盈利能力建设</strong>的全过程。负责市场拓展、商户增长、定价机制、用户体验、运营效率与商业结果。对 P&L 负责。</p>
-      <p class="en">Commercial leader with <strong>10+ years</strong> across brand and consumer platform businesses — spanning <strong>integrated marketing, commercial growth, partnership ecosystems, customer success and platform operations</strong>. Started at BBDO serving premium brands, building hands-on experience in brand advertising, consumer behavior and integrated marketing; then joined ClassPass China as <strong>employee #1</strong>, owning the full arc from <strong>0-to-1 market entry</strong> through scale to <strong>profitability</strong> — responsible for market expansion, partner growth, pricing, customer experience, operational efficiency and business results. Accountable for the P&L.</p>
-      <p class="about-tag"><span class="zh">用数据驱动商业判断，用体验定义品牌。</span><span class="en">Data informs the deal. Experience defines the brand.</span></p>
-    </div>
-    <div class="stats reveal">
-      <div class="stat"><div class="num" data-count="17">0</div><div class="lab"><span class="zh">城市市场</span><span class="en">City Markets</span></div></div>
-      <div class="stat"><div class="num" data-count="2400" data-suffix="+">0</div><div class="lab"><span class="zh">优质合作伙伴</span><span class="en">Premium Partners</span></div></div>
-      <div class="stat"><div class="num" data-count="96" data-suffix="%">0</div><div class="lab"><span class="zh">合作伙伴留存率</span><span class="en">Partner Retention</span></div></div>
-      <div class="stat"><div class="num" data-count="50" data-suffix="%+">0</div><div class="lab"><span class="zh">重点伙伴收入年增长</span><span class="en">YoY Partner Revenue Growth</span></div></div>
-      <div class="stat"><div class="num" data-count="20" data-suffix="%">0</div><div class="lab"><span class="zh">利润增长</span><span class="en">Profit Growth</span></div></div>
-      <div class="stat"><div class="num">0→1</div><div class="lab"><span class="zh">中国 1 号员工 · 从零起盘</span><span class="en">Employee #1 · Built from Zero</span></div></div>
-    </div>
-  </div>
-</section>
-
-<div class="marquee alt"><div class="track" id="mq2"></div></div>
 
 <section id="timeline">
   <div class="sec-head reveal">
-    <span class="sec-num">02</span>
+    <span class="sec-num">01</span>
     <h2 class="sec-title"><span class="zh">职业时间线</span><span class="en">The Timeline</span></h2>
   </div>
-  <p class="tl-intro reveal"><span class="zh">每一段经历都是一个阶段命题：从广告营销出发，经过并购交接、市场冷启、商务拓展、精细化运营、数据化经营，走到规模化与盈利。</span><span class="en">Each role answered a stage-defining question — starting from advertising & marketing, through M&A transition, market cold-start, business development, refined operations and data-driven management, to scale and profitability.</span></p>
+  <p class="tl-intro reveal"><span class="zh">每一段经历都是一个商业化阶段命题：如何理解市场、识别需求、建立信任、拿下供给、推动增长、商户留存，并把增长转化为利润。</span><span class="en">Each role was a stage-defined commercial challenge: understand the market, identify demand, build trust, secure supply, drive growth, partner retention, and convert growth into profit.</span></p>
   <p class="tl-hint reveal"><span class="zh">点击每个阶段，展开具体内容</span><span class="en">Click any chapter to expand the details</span><span class="arr">↓</span></p>
 
   <div class="tl reveal">
-    <div class="tl-co-label">ClassPass China · 2018.12 — <span class="zh">至今</span><span class="en">Present</span></div>
+    <div class="tl-co-label"><a class="co-link" href="https://classpass.com/" target="_blank" rel="noopener">ClassPass China</a> · 2018.12 — <span class="zh">至今</span><span class="en">Present</span></div>
+    <div class="stats reveal">
+      <div class="stat"><div class="num" data-count="17" data-suffix="+">0</div><p class="lab"><span class="zh">城市</span><span class="en">Cities</span></p></div>
+      <div class="stat"><div class="num" data-count="2400" data-suffix="+">0</div><p class="lab"><span class="zh">精品合作伙伴</span><span class="en">Premium Partners</span></p></div>
+      <div class="stat"><div class="num" data-count="96" data-suffix="%">0</div><p class="lab"><span class="zh">合作伙伴留存率</span><span class="en">Partner Retention</span></p></div>
+      <div class="stat"><div class="num" data-count="50" data-suffix="%">0</div><p class="lab"><span class="zh">KA 收入年增长</span><span class="en">KA Revenue Growth YoY</span></p></div>
+      <div class="stat"><div class="num" data-count="20" data-suffix="%">0</div><p class="lab"><span class="zh">利润增长</span><span class="en">Profit Growth</span></p></div>
+      <div class="stat"><div class="num" style="font-size:clamp(1.4rem,2.5vw,2.2rem)">0→1</div><p class="lab"><span class="zh">中国 1 号员工</span><span class="en">Employee #1</span></p></div>
+    </div>
+    <div class="marquee alt"><div class="track" id="mq2"></div></div>
 
     <div class="tl-item">
       <div class="tl-row">
         <div class="tl-date">2025.01 — <span class="zh">至今</span><span class="en">Now</span></div>
         <div class="tl-main">
-          <div class="role"><span class="zh">中国商务及运营总监</span><span class="en">Head of Partnerships & Operations</span></div>
-          <div class="co"><a class="co-link" href="https://classpass.com/" target="_blank" rel="noopener">ClassPass China</a></div>
+          <div class="role"><span class="zh">合作伙伴与运营负责人</span><span class="en">Head of Partnerships & Operations</span></div>
           <div class="theme"><span class="zh">盈利阶段：从增长规模转向生意质量</span><span class="en">Profitability: from scale to quality of business</span></div>
         </div>
         <div class="tl-plus">+</div>
       </div>
       <div class="tl-body"><div class="tl-body-in"><div class="spacer"></div><div>
-        <p class="tl-lede"><span class="zh">在业务从规模扩张转向可持续盈利的阶段，负责中国区合作伙伴与运营管理。这个阶段的命题不再是"长多快"，而是"生意质量有多好"——重点重构定价机制、优化交易质量、提升盈利能力。</span><span class="en">As the business shifted from expansion to sustainable profitability, the question changed from "how fast can we grow" to "how good is the business." Took ownership of China's partners and operations — rebuilding pricing, improving deal quality and lifting margins.</span></p>
+        <p class="tl-lede"><span class="zh">在业务从规模扩张转向可持续盈利的阶段，拓展中国合作伙伴与运营管理。这个阶段的命题不再是"长多快"，而是"生意质量有多好"——重点重构定价机制、优化交易质量、提升盈利能力。</span><span class="en">As the business shifted from expansion to sustainable profitability, the question changed from "how fast can we grow" to "how good is the business." Grew China's partner network and operations — rebuilding pricing, improving deal quality and lifting margins.</span></p>
         <ul>
-        <li class="zh">基于不同品类、商户等级和商务条款，设计<b>动态定价与签约机制</b>，在多种合作模式下持续改善利润结构，实现<b>利润增长 20%</b></li>
-        <li class="en">Designed <b>dynamic pricing and contracting mechanics</b> by category, partner tier and deal terms — continuously improving margin structure across deal models, delivering <b>20% profit growth</b></li>
         <li class="zh">主导 <b>AI 自动化</b>在 B2B 与 B2C 服务场景中的应用，搭建智能客服与自动化工作流，在不增加团队规模的前提下实现 <b>7×24 小时服务覆盖</b></li>
         <li class="en">Led <b>AI automation</b> across B2B & B2C service scenarios — intelligent support and automated workflows delivering <b>24/7 coverage</b> without growing the team</li>
+        <li class="zh">重构中国区商户定价与签约管理机制，建立按品类和合作模式拆分的利润测算模型，搭建内部定价工具。带领团队持续优化合作条款和交易结构，实现<b>利润增长 20%</b></li>
+        <li class="en">Rebuilt China's partner pricing and contracting mechanics — developed a margin model broken down by category and deal type, and built internal pricing tools. Led the team to continuously optimize deal terms and transaction structures, delivering <b>20% profit growth</b></li>
         <li class="zh">将 BD、AM、CX 与运营整合为一支团队，<b>编制精简 33%</b> 的同时提升协同效率，保持业务增长</li>
         <li class="en">Merged BD, AM, CX and Operations into one integrated team — <b>33% leaner headcount</b> with better coordination, while maintaining growth</li>
-        <li class="zh">随着 B2B2C 企业福利业务快速发展，针对企业客户与平台交易场景设计更适配的合作条款与运营规则，推动企业需求转化为平台成交规模</li>
-        <li class="en">As B2B2C corporate wellness took off, designed deal terms and operating rules fit for enterprise clients — converting corporate demand into marketplace volume</li>
+        <li class="zh">针对 B2B2C 企业福利业务，制定适配企业客户需求的商家运营优化方案，提升供给质量和企业客户的平台使用度</li>
+        <li class="en">Developed partner operation optimization for the B2B2C corporate business, aligning supply with enterprise client needs and increasing corporate usage of the platform</li>
       </ul></div></div></div>
     </div>
 
@@ -298,8 +336,7 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
       <div class="tl-row">
         <div class="tl-date">2023.01 — 2024.12</div>
         <div class="tl-main">
-          <div class="role"><span class="zh">中国客户总监</span><span class="en">Head of Account Management</span></div>
-          <div class="co"><a class="co-link" href="https://classpass.com/" target="_blank" rel="noopener">ClassPass China</a></div>
+          <div class="role"><span class="zh">客户管理负责人</span><span class="en">Head of Account Management</span></div>
           <div class="theme"><span class="zh">规模化阶段：建立完整商户运营体系</span><span class="en">Scale: building a complete partner operating system</span></div>
         </div>
         <div class="tl-plus">+</div>
@@ -323,7 +360,6 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
         <div class="tl-date">2021.09 — 2022.12</div>
         <div class="tl-main">
           <div class="role"><span class="zh">客户管理与运营负责人</span><span class="en">Account Management & Operations Lead</span></div>
-          <div class="co"><a class="co-link" href="https://classpass.com/" target="_blank" rel="noopener">ClassPass China</a></div>
           <div class="theme"><span class="zh">数据化经营阶段：从关系管理到经营系统</span><span class="en">Data-driven: from relationships to an operating system</span></div>
         </div>
         <div class="tl-plus">+</div>
@@ -344,8 +380,7 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
       <div class="tl-row">
         <div class="tl-date">2020.04 — 2021.08</div>
         <div class="tl-main">
-          <div class="role"><span class="zh">运营负责人</span><span class="en">Operations Lead, China</span></div>
-          <div class="co"><a class="co-link" href="https://classpass.com/" target="_blank" rel="noopener">ClassPass China</a></div>
+          <div class="role"><span class="zh">中国区运营负责人</span><span class="en">Operations Lead, China</span></div>
           <div class="theme"><span class="zh">疫情与本地化：在不确定中建立运营能力</span><span class="en">Resilience: building ops muscle through uncertainty</span></div>
         </div>
         <div class="tl-plus">+</div>
@@ -365,7 +400,6 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
         <div class="tl-date">2019.07 — 2020.03</div>
         <div class="tl-main">
           <div class="role"><span class="zh">上海城市负责人</span><span class="en">Shanghai City Lead</span></div>
-          <div class="co"><a class="co-link" href="https://classpass.com/" target="_blank" rel="noopener">ClassPass China</a></div>
           <div class="theme"><span class="zh">市场重启阶段：从交接到重新增长</span><span class="en">Restart: from handover to renewed growth</span></div>
         </div>
         <div class="tl-plus">+</div>
@@ -400,14 +434,14 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
       </ul></div></div></div>
     </div>
 
-    <div class="tl-co-label">BBDO Shanghai</div>
+    <div class="tl-co-label"><a class="co-link" href="https://bbdo.com/" target="_blank" rel="noopener">BBDO Shanghai</a></div>
 
     <div class="tl-item">
       <div class="tl-row">
         <div class="tl-date">2015.11 — 2018.07</div>
         <div class="tl-main">
           <div class="role"><span class="zh">资深客户执行</span><span class="en">Senior Account Executive</span></div>
-          <div class="co"><a class="co-link" href="https://bbdo.com/" target="_blank" rel="noopener">BBDO Shanghai</a> · <span class="zh">全球 4A 广告公司</span><span class="en">Global Advertising Agency</span></div>
+          <div class="co"><span class="zh">全球 4A 广告公司</span><span class="en">Global Advertising Agency</span></div>
           <div class="theme"><span class="zh">广告营销阶段：让品牌价值通过表达传播</span><span class="en">Advertising: where brand value learns to speak</span></div>
         </div>
         <div class="tl-plus">+</div>
@@ -424,14 +458,14 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
       </ul></div></div></div>
     </div>
 
-    <div class="tl-co-label"><span class="zh">教育背景</span><span class="en">Education</span></div>
+    <div class="tl-co-label"><a class="co-link" href="https://msu.edu/" target="_blank" rel="noopener">Michigan State University</a></div>
 
     <div class="tl-item">
       <div class="tl-row">
         <div class="tl-date">2011 — 2015</div>
         <div class="tl-main">
           <div class="role"><span class="zh">密歇根州立大学</span><span class="en">Michigan State University</span></div>
-          <div class="co"><a class="co-link" href="https://msu.edu/" target="_blank" rel="noopener">Michigan State University</a> · <span class="zh">文学与科学学士 · 广告学 · 美国</span><span class="en">Bachelor of Arts & Sciences, Advertising · USA</span></div>
+          <div class="co"><span class="zh">文学与科学学士 · 广告学 · 美国</span><span class="en">Bachelor of Arts & Sciences, Advertising · USA</span></div>
         </div>
         <div class="tl-plus">+</div>
       </div>
@@ -443,33 +477,31 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
   </div>
 </section>
 
-<div class="marquee"><div class="track" id="mq3"></div></div>
-
 <section id="caps">
   <div class="sec-head reveal">
-    <span class="sec-num">03</span>
+    <span class="sec-num">02</span>
     <h2 class="sec-title"><span class="zh">核心能力</span><span class="en">Capabilities</span></h2>
-    <p class="sec-note"><span class="zh">五个支点，撑起一门从 0 到盈利的生意。</span><span class="en">Five pillars that carried a business from zero to profit.</span></p>
   </div>
+  <div class="marquee" style="margin:-2rem -4vw 2.5rem;"><div class="track" id="mq3"></div></div>
   <div class="caps reveal">
 
     <div class="cap">
       <div class="cap-row">
         <span class="cap-num">01</span>
-        <span class="cap-name"><span class="zh">商务拓展</span><span class="en">Business Development</span></span>
+        <span class="cap-name"><span class="zh">市场进入与商务拓展</span><span class="en">Market Entry & Business Development</span></span>
         <span class="cap-arrow">→</span>
       </div>
       <div class="cap-body"><div class="cap-body-in">
         <p class="cap-desc">
-          <span class="zh">从市场进入到生态扩张的完整打法：执行 go-to-market、谈判商业条款、设计定价与交易结构。把 ClassPass China 从 0 做到 17 城、2,400+ 优质合作伙伴，品类从健身扩展到五星级酒店、SPA、康复与健康餐饮。</span>
-          <span class="en">The full playbook from market entry to ecosystem expansion: go-to-market execution, commercial negotiation, pricing and deal architecture. Grew ClassPass China from zero to 17 cities and 2,400+ premium partners — expanding from fitness into 5-star hotels, spas, recovery and healthy F&B.</span>
+          <span class="zh">从冷启动到规模化，落地市场进入、拓展合作伙伴、实现客户成功、商业条款谈判、优化定价与交易结构设计。将 ClassPass China 从 0 做到 17 城、覆盖 2,400+ 优质合作伙伴，品类从健身扩展至五星级酒店、SPA、康复与健康餐饮。擅长在新市场阶段快速验证供给、需求和商业模型，并把早期打法沉淀为可复制的拓展机制。</span>
+          <span class="en">Led market entry from cold start to scale, building supply, driving partner success, negotiating commercial terms, and improving pricing and deal structures. Grew ClassPass China from zero to 17 cities and 2,400+ premium partners, expanding from fitness into five-star hotels, spas, recovery, F&amp;B, and other health-related services. Strong at validating supply, demand, and business models in new markets, then turning early playbooks into repeatable expansion mechanisms.</span>
         </p>
         <div class="cap-tags">
           <span class="zh">市场进入与扩张</span><span class="en">Market Entry & Expansion</span>
           <span class="zh">合作伙伴生态</span><span class="en">Partnerships</span>
           <span class="zh">商务谈判</span><span class="en">Commercial Negotiation</span>
-          <span class="zh">定价与交易经济</span><span class="en">Pricing & Deal Economics</span>
-          <span class="zh">收入增长</span><span class="en">Revenue Growth</span>
+          <span class="zh">定价与交易结构</span><span class="en">Pricing & Deal Structure</span>
+          <span class="zh">客户成功</span><span class="en">Partner Success</span>
         </div>
       </div></div>
     </div>
@@ -477,19 +509,20 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
     <div class="cap">
       <div class="cap-row">
         <span class="cap-num">02</span>
-        <span class="cap-name"><span class="zh">数据分析</span><span class="en">Data Analytics</span></span>
+        <span class="cap-name"><span class="zh">产品运营与 AI 落地</span><span class="en">Product Operations & AI Implementation</span></span>
         <span class="cap-arrow">→</span>
       </div>
       <div class="cap-body"><div class="cap-body-in">
         <p class="cap-desc">
-          <span class="zh">数据为基础的商业分析，在商业谈判、团队运营、资源分配、绩效管理、供给完整生命周期管理中不可或缺。自学 SQL 与 Tableau，从零搭建供给健康度监测与商户分层体系——支撑业务健康扩张与利润率持续改善的，正是这些藏在数据背后的洞察。</span>
-          <span class="en">Data-grounded business analysis is indispensable to commercial negotiation, team operations, resource allocation, performance management and full-lifecycle supply management. Self-taught SQL and Tableau to build supply-health monitoring and partner tiering from scratch — what sustains healthy expansion and ever-improving margins are the insights hidden in the data.</span>
+          <span class="zh">从一线运营中识别高频重复场景，并将其转化为产品需求、流程规则和 AI 工具应用。参与 B2B 商家端产品开发，设计商家使用旅程并协作上线小程序；后续将 AI 自动化引入 B2B 与 B2C 服务场景，在不增加人手的情况下实现 7×24 服务覆盖，提升团队执行效率。</span>
+          <span class="en">Identified high-volume, repetitive operational scenarios from frontline work and translated them into product requirements, workflow rules, and AI tool applications. Contributed to B2B partner product development by designing partner journeys and working with engineering to launch the partner-facing Mini Program. Later introduced AI automation into B2B and B2C service workflows, enabling 24/7 coverage without adding headcount and improving team execution efficiency.</span>
         </p>
         <div class="cap-tags">
-          <span>SQL</span><span>Tableau</span><span>CRM</span>
-          <span class="zh">商业分析</span><span class="en">Business Analytics</span>
-          <span class="zh">经营表现分析</span><span class="en">Commercial Performance</span>
-          <span class="zh">KPI 设计</span><span class="en">KPI Design</span>
+          <span class="zh">AI 自动化</span><span class="en">AI Automation</span>
+          <span class="zh">B2B 产品开发</span><span class="en">B2B Product Development</span>
+          <span class="zh">用户旅程设计</span><span class="en">User Journey Design</span>
+          <span class="zh">运营效率</span><span class="en">Operational Efficiency</span>
+          <span>Mini Program</span>
         </div>
       </div></div>
     </div>
@@ -497,20 +530,18 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
     <div class="cap">
       <div class="cap-row">
         <span class="cap-num">03</span>
-        <span class="cap-name"><span class="zh">广告营销</span><span class="en">Advertising & Marketing</span></span>
+        <span class="cap-name"><span class="zh">商业分析</span><span class="en">Commercial Analytics</span></span>
         <span class="cap-arrow">→</span>
       </div>
       <div class="cap-body"><div class="cap-body-in">
         <p class="cap-desc">
-          <span class="zh">BBDO 三年高端品牌整合营销训练：品牌策略、创意传播、消费者洞察。后来在平台侧延续——通过 K11 等品牌联名与线下活动，把 ClassPass 塑造成高净值人群的城市健康生活方式品牌。</span>
-          <span class="en">Three years of integrated marketing training at BBDO on premium brands: strategy, creative, consumer insight. Carried into the platform side — brand collaborations and offline activations (K11 and beyond) that built ClassPass's premium presence among high-value consumers.</span>
+          <span class="zh">用数据支持商业谈判、资源分配、绩效管理和供给生命周期管理。使用 SQL 与 Tableau，从零搭建供给健康度监测和商户分层体系，追踪收入趋势、留存风险和增长机会，支撑业务扩张、成本控制和利润改善。</span>
+          <span class="en">Used data to support commercial negotiation, resource allocation, performance management, and supply lifecycle management. Built supply health tracking and partner segmentation from the ground up using SQL and Tableau, monitoring revenue trends, retention risks, and growth opportunities to support business expansion, cost control, and profit improvement.</span>
         </p>
         <div class="cap-tags">
-          <span class="zh">整合营销</span><span class="en">Integrated Marketing</span>
-          <span class="zh">品牌定位</span><span class="en">Brand Positioning</span>
-          <span class="zh">消费者洞察</span><span class="en">Consumer Insight</span>
-          <span class="zh">品牌联名与活动</span><span class="en">Collabs & Activations</span>
-          <span class="zh">用户体验</span><span class="en">Customer Experience</span>
+          <span>SQL</span><span>Tableau</span><span>CRM</span>
+          <span class="zh">供给健康监测</span><span class="en">Supply Health Tracking</span>
+          <span class="zh">商户分层</span><span class="en">Partner Segmentation</span>
         </div>
       </div></div>
     </div>
@@ -518,19 +549,19 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
     <div class="cap">
       <div class="cap-row">
         <span class="cap-num">04</span>
-        <span class="cap-name"><span class="zh">团队管理</span><span class="en">Team Leadership</span></span>
+        <span class="cap-name"><span class="zh">整合营销</span><span class="en">Integrated Marketing</span></span>
         <span class="cap-arrow">→</span>
       </div>
       <div class="cap-body"><div class="cap-body-in">
         <p class="cap-desc">
-          <span class="zh">组织设计、招聘与跨职能领导，背后对 P&L 负责。把 BD、AM、CX 与运营整合为一支团队，编制精简 33% 的同时保持增长；通过 CRM 与标准化流程，让单人商户覆盖效率提升 40%。</span>
-          <span class="en">Org design, hiring and cross-functional leadership, backed by P&L accountability. Merged BD, AM, CX and Operations into one integrated team — 33% leaner while still growing; CRM and standardized SOPs lifted per-person partner coverage by 40%.</span>
+          <span class="zh">在 BBDO 服务高端品牌客户，积累品牌传播策略、消费者洞察、创意方案和整合营销落地经验。进入平台业务后，将品牌能力用于市场冷启动和需求验证，通过 K11 等品牌联名与线下活动，建立 ClassPass 在高净值人群中的健康生活方式品牌认知。</span>
+          <span class="en">Served premium brand clients at BBDO, building experience in brand communication strategy, consumer insight, creative solutions, and integrated campaign delivery. Later applied this brand and marketing experience to platform market entry and demand validation, using brand collaborations and offline activations with partners such as K11 to build ClassPass's premium wellness lifestyle positioning among high-value consumers.</span>
         </p>
         <div class="cap-tags">
-          <span class="zh">组织设计与招聘</span><span class="en">Org Design & Hiring</span>
-          <span class="zh">P&L 管理</span><span class="en">P&L Ownership</span>
-          <span class="zh">跨职能团队</span><span class="en">Cross-functional Teams</span>
-          <span class="zh">流程与 SOP</span><span class="en">Process & SOPs</span>
+          <span class="zh">整合营销</span><span class="en">Integrated Marketing</span>
+          <span class="zh">品牌定位</span><span class="en">Brand Positioning</span>
+          <span class="zh">消费者洞察</span><span class="en">Consumer Insight</span>
+          <span class="zh">品牌联名与活动</span><span class="en">Collabs & Activations</span>
         </div>
       </div></div>
     </div>
@@ -538,20 +569,19 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
     <div class="cap">
       <div class="cap-row">
         <span class="cap-num">05</span>
-        <span class="cap-name"><span class="zh">运营与产品</span><span class="en">Operations & Product</span></span>
+        <span class="cap-name"><span class="zh">团队管理</span><span class="en">Team Management</span></span>
         <span class="cap-arrow">→</span>
       </div>
       <div class="cap-body"><div class="cap-body-in">
         <p class="cap-desc">
-          <span class="zh">把运营问题翻译成产品方案：参与 B2B 产品开发——设计用户旅程、与工程团队协作上线商家端小程序；近期把 AI 自动化引入 B2B 与 B2C 服务场景，不增加人手实现 7×24 服务覆盖。KPI 设计与运营管理，让体系自己跑起来。</span>
-          <span class="en">Translating operational problems into product solutions: contributed to B2B product development — designing user journeys and shipping the partner-facing Mini Program with engineering; recently brought AI automation into B2B & B2C service scenarios for 24/7 coverage without added headcount. KPI design and operations management that make the system run itself.</span>
+          <span class="zh">搭建并整合 BD、AM、CX 与运营团队，对增长、团队表现和 P&amp;L 结果负责。在编制精简 33% 的情况下保持业务增长，并通过 CRM、本地化 SOP 追踪，让单人商户覆盖效率提升 40%。</span>
+          <span class="en">Built and integrated BD, AM, CX, and Operations teams, with ownership of growth, team performance, and P&amp;L results. Maintained business growth while reducing headcount by 33%, and improved partner coverage per team member by 40% through CRM adoption and localized SOP tracking.</span>
         </p>
         <div class="cap-tags">
-          <span class="zh">运营管理</span><span class="en">Operations Management</span>
-          <span class="zh">B2B 产品开发</span><span class="en">B2B Product Development</span>
-          <span class="zh">用户旅程设计</span><span class="en">User Journey Design</span>
-          <span class="zh">KPI 设计</span><span class="en">KPI Design</span>
-          <span class="zh">AI 自动化工作流</span><span class="en">AI Workflow Automation</span>
+          <span class="zh">组织设计与招聘</span><span class="en">Org Design & Hiring</span>
+          <span class="zh">P&amp;L 管理</span><span class="en">P&amp;L Ownership</span>
+          <span class="zh">跨职能团队</span><span class="en">Cross-functional Teams</span>
+          <span class="zh">流程与 SOP</span><span class="en">Process & SOPs</span>
         </div>
       </div></div>
     </div>
@@ -561,9 +591,36 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
 
 <section id="beyond">
   <div class="sec-head reveal">
-    <span class="sec-num">04</span>
+    <span class="sec-num">03</span>
     <h2 class="sec-title"><span class="zh">工作之外</span><span class="en">Beyond Work</span></h2>
     <p class="sec-note"><span class="zh">认真玩，也是一种专业。把每个爱好都学到拿证。</span><span class="en">Serious about play — every hobby pursued to certification.</span></p>
+  </div>
+  <div class="cred-row reveal">
+    <span class="cred-label">Credentials</span>
+    <span class="cred-pill">
+      <span class="cp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 8.5 22 9.2 17 14 18.4 21 12 17.4 5.6 21 7 14 2 9.2 9 8.5 12 2"/></svg></span>
+      <span class="cp-name">AI For Everyone</span>
+      <span class="cp-sep">·</span>
+      <span class="cp-by">DeepLearning.AI × Coursera · Andrew Ng · 2026</span>
+    </span>
+    <span class="cred-pill">
+      <span class="cp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 3h8l-1 8a4 4 0 0 1-6 0L8 3Z"/><path d="M12 14v6"/><path d="M8 21h8"/></svg></span>
+      <span class="cp-name">WSET Level 2</span>
+      <span class="cp-sep">·</span>
+      <span class="cp-by">Wine &amp; Spirit Education Trust · Distinction</span>
+    </span>
+    <span class="cred-pill">
+      <span class="cp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12l4 6-10 11L2 10l4-6Z"/><path d="M2 10h20"/><path d="M12 21 8 10l4-6 4 6-4 11Z"/></svg></span>
+      <span class="cp-name">IGI P.D.G</span>
+      <span class="cp-sep">·</span>
+      <span class="cp-by">International Gemological Institute</span>
+    </span>
+    <span class="cred-pill">
+      <span class="cp-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 8v5"/><path d="M8 13l4-3 4 3"/><path d="M7 21l5-5 5 5"/><path d="M4 21h16"/></svg></span>
+      <span class="cp-name">RYT200 + RYT50</span>
+      <span class="cp-sep">·</span>
+      <span class="cp-by">Yoga Alliance</span>
+    </span>
   </div>
   <div class="beyond-grid">
     <div class="card reveal">
@@ -616,6 +673,7 @@ footer{padding:8rem 4vw 3rem;border-top:1px solid var(--line);position:relative;
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
 <script>
 /* ---------- language toggle ---------- */
 const html=document.documentElement, langBtn=document.getElementById('langBtn');
@@ -645,8 +703,8 @@ addEventListener('scroll',()=>{
 },{passive:true});
 
 /* ---------- rotator ---------- */
-const wordsZh=['商务拓展','数据分析','广告营销','团队管理','市场进入与扩张','定价与交易设计','合作伙伴生态','客户成功','P&L 经营','AI 提效'];
-const wordsEn=['Business Development','Data Analytics','Brand Marketing','Team Leadership','Market Entry & Expansion','Pricing & Deal Design','Partnership Ecosystems','Customer Success','P&L Ownership','AI-powered Efficiency'];
+const wordsZh=['GTM 策略','AI 提效','市场进入与扩张','商务拓展','定价与交易设计','数据分析','合作伙伴生态','P&L 经营','团队管理','广告营销'];
+const wordsEn=['GTM Strategy','AI-powered Efficiency','Market Entry & Expansion','Business Development','Pricing & Deal Design','Data Analytics','Partnership Ecosystems','P&L Ownership','Team Leadership','Brand Marketing'];
 let wi=0;
 setInterval(()=>{
   wi=(wi+1)%wordsZh.length;
@@ -665,7 +723,6 @@ function fillMarquee(id,items){
   for(let r=0;r<2;r++){items.forEach(s=>html+='<span>'+s+'<i>+</i></span>');}
   t.innerHTML=html;
 }
-fillMarquee('mq1',['Market Entry','0 → 1 → Profit','2,400+ Partners','17 Cities','P&L Owner','Premium Supply','Growth']);
 fillMarquee('mq2',['SQL','Tableau','CRM','Pricing','Deal Economics','Supply Health','96% Retention','AI Workflows']);
 fillMarquee('mq3',['BD','Data','Marketing','Leadership','Ops & Product','BD','Data','Marketing','Leadership','Ops & Product']);
 
@@ -715,6 +772,211 @@ addEventListener('resize',refreshOpen);
 /* open first timeline item by default */
 const first=document.querySelector('.tl-item');
 if(first){first.classList.add('open');setTimeout(()=>{first.querySelector('.tl-body').style.maxHeight=first.querySelector('.tl-body').scrollHeight+'px'},300)}
+
+/* ========== COLORBENDS Three.js ========== */
+(function(){
+  if(typeof THREE==='undefined')return;
+  const container=document.getElementById('colorBendsContainer');
+  if(!container)return;
+
+  /* config - site accent palette, matching usage example props */
+  const CFG={
+    colors:['#6d28d9','#d9ff4b','#ff5c39','#2563eb'],
+    rotation:51,autoRotate:0,speed:0.2,
+    scale:1,frequency:1.2,warpStrength:1,
+    mouseInfluence:1.15,parallax:0.5,noise:0.15,
+    iterations:1,intensity:1.5,bandWidth:4.5,
+    transparent:true,
+  };
+
+  const MAX_COLORS=8;
+
+  const frag=[
+    '#define MAX_COLORS 8',
+    'uniform vec2 uCanvas;',
+    'uniform float uTime;',
+    'uniform float uSpeed;',
+    'uniform vec2 uRot;',
+    'uniform int uColorCount;',
+    'uniform vec3 uColors[MAX_COLORS];',
+    'uniform int uTransparent;',
+    'uniform float uScale;',
+    'uniform float uFrequency;',
+    'uniform float uWarpStrength;',
+    'uniform vec2 uPointer;',
+    'uniform float uMouseInfluence;',
+    'uniform float uParallax;',
+    'uniform float uNoise;',
+    'uniform int uIterations;',
+    'uniform float uIntensity;',
+    'uniform float uBandWidth;',
+    'varying vec2 vUv;',
+    'void main(){',
+    '  float t=uTime*uSpeed;',
+    '  vec2 p=vUv*2.0-1.0;',
+    '  p+=uPointer*uParallax*0.1;',
+    '  vec2 rp=vec2(p.x*uRot.x-p.y*uRot.y,p.x*uRot.y+p.y*uRot.x);',
+    '  vec2 q=vec2(rp.x*(uCanvas.x/uCanvas.y),rp.y);',
+    '  q/=max(uScale,0.0001);',
+    '  q/=0.5+0.2*dot(q,q);',
+    '  q+=0.2*cos(t)-7.56;',
+    '  vec2 toward=(uPointer-rp);',
+    '  q+=toward*uMouseInfluence*0.2;',
+    '  for(int j=0;j<5;j++){',
+    '    if(j>=uIterations-1)break;',
+    '    vec2 rr=sin(1.5*(q.yx*uFrequency)+2.0*cos(q*uFrequency));',
+    '    q+=(rr-q)*0.15;',
+    '  }',
+    '  vec3 col=vec3(0.0);',
+    '  float a=1.0;',
+    '  if(uColorCount>0){',
+    '    vec2 s=q;',
+    '    vec3 sumCol=vec3(0.0);',
+    '    float cover=0.0;',
+    '    for(int i=0;i<MAX_COLORS;++i){',
+    '      if(i>=uColorCount)break;',
+    '      s-=0.01;',
+    '      vec2 r=sin(1.5*(s.yx*uFrequency)+2.0*cos(s*uFrequency));',
+    '      float m0=length(r+sin(5.0*r.y*uFrequency-3.0*t+float(i))/4.0);',
+    '      float kBelow=clamp(uWarpStrength,0.0,1.0);',
+    '      float kMix=pow(kBelow,0.3);',
+    '      float gain=1.0+max(uWarpStrength-1.0,0.0);',
+    '      vec2 disp=(r-s)*kBelow;',
+    '      vec2 warped=s+disp*gain;',
+    '      float m1=length(warped+sin(5.0*warped.y*uFrequency-3.0*t+float(i))/4.0);',
+    '      float m=mix(m0,m1,kMix);',
+    '      float w=1.0-exp(-uBandWidth/exp(uBandWidth*m));',
+    '      sumCol+=uColors[i]*w;',
+    '      cover=max(cover,w);',
+    '    }',
+    '    col=clamp(sumCol,0.0,1.0);',
+    '    a=uTransparent>0?cover:1.0;',
+    '  }else{',
+    '    vec2 s=q;',
+    '    for(int k=0;k<3;++k){',
+    '      s-=0.01;',
+    '      vec2 r=sin(1.5*(s.yx*uFrequency)+2.0*cos(s*uFrequency));',
+    '      float m0=length(r+sin(5.0*r.y*uFrequency-3.0*t+float(k))/4.0);',
+    '      float kBelow=clamp(uWarpStrength,0.0,1.0);',
+    '      float kMix=pow(kBelow,0.3);',
+    '      float gain=1.0+max(uWarpStrength-1.0,0.0);',
+    '      vec2 disp=(r-s)*kBelow;',
+    '      vec2 warped=s+disp*gain;',
+    '      float m1=length(warped+sin(5.0*warped.y*uFrequency-3.0*t+float(k))/4.0);',
+    '      float m=mix(m0,m1,kMix);',
+    '      col[k]=1.0-exp(-uBandWidth/exp(uBandWidth*m));',
+    '    }',
+    '    a=uTransparent>0?max(max(col.r,col.g),col.b):1.0;',
+    '  }',
+    '  col*=uIntensity;',
+    '  if(uNoise>0.0001){',
+    '    float n=fract(sin(dot(gl_FragCoord.xy+vec2(uTime),vec2(12.9898,78.233)))*43758.5453123);',
+    '    col+=(n-0.5)*uNoise;',
+    '    col=clamp(col,0.0,1.0);',
+    '  }',
+    '  vec3 rgb=(uTransparent>0)?col*a:col;',
+    '  gl_FragColor=vec4(rgb,a);',
+    '}',
+  ].join('\n');
+
+  const vert=[
+    'varying vec2 vUv;',
+    'void main(){vUv=uv;gl_Position=vec4(position,1.0);}',
+  ].join('\n');
+
+  function toVec3(hex){
+    const h=hex.replace('#','').trim();
+    const v=h.length===3
+      ?[parseInt(h[0]+h[0],16),parseInt(h[1]+h[1],16),parseInt(h[2]+h[2],16)]
+      :[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];
+    return new THREE.Vector3(v[0]/255,v[1]/255,v[2]/255);
+  }
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+  const geometry=new THREE.PlaneGeometry(2,2);
+
+  const uColorsArr=Array.from({length:MAX_COLORS},()=>new THREE.Vector3(0,0,0));
+  const colorsInput=(CFG.colors||[]).filter(Boolean).slice(0,MAX_COLORS).map(toVec3);
+  for(let i=0;i<MAX_COLORS;i++){if(i<colorsInput.length)uColorsArr[i].copy(colorsInput[i]);}
+
+  const rotRad=(CFG.rotation*Math.PI)/180;
+  const material=new THREE.ShaderMaterial({
+    vertexShader:vert,
+    fragmentShader:frag,
+    uniforms:{
+      uCanvas:        {value:new THREE.Vector2(1,1)},
+      uTime:          {value:0},
+      uSpeed:         {value:CFG.speed},
+      uRot:           {value:new THREE.Vector2(Math.cos(rotRad),Math.sin(rotRad))},
+      uColorCount:    {value:colorsInput.length},
+      uColors:        {value:uColorsArr},
+      uTransparent:   {value:CFG.transparent?1:0},
+      uScale:         {value:CFG.scale},
+      uFrequency:     {value:CFG.frequency},
+      uWarpStrength:  {value:CFG.warpStrength},
+      uPointer:       {value:new THREE.Vector2(0,0)},
+      uMouseInfluence:{value:CFG.mouseInfluence},
+      uParallax:      {value:CFG.parallax},
+      uNoise:         {value:CFG.noise},
+      uIterations:    {value:CFG.iterations},
+      uIntensity:     {value:CFG.intensity},
+      uBandWidth:     {value:CFG.bandWidth},
+    },
+    premultipliedAlpha:true,
+    transparent:true,
+  });
+
+  const mesh=new THREE.Mesh(geometry,material);
+  scene.add(mesh);
+
+  const renderer=new THREE.WebGLRenderer({antialias:false,powerPreference:'high-performance',alpha:true});
+  if(THREE.SRGBColorSpace)renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.setClearColor(0x000000,CFG.transparent?0:1);
+  renderer.domElement.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:block;';
+  container.appendChild(renderer.domElement);
+
+  function handleResize(){
+    const w=container.clientWidth||1,h=container.clientHeight||1;
+    renderer.setSize(w,h,false);
+    material.uniforms.uCanvas.value.set(w,h);
+  }
+  handleResize();
+  const ro=new ResizeObserver(handleResize);
+  ro.observe(container);
+
+  const pTarget=new THREE.Vector2(0,0);
+  const pCurrent=new THREE.Vector2(0,0);
+  container.addEventListener('pointermove',e=>{
+    const rect=container.getBoundingClientRect();
+    const x=((e.clientX-rect.left)/(rect.width||1))*2-1;
+    const y=-(((e.clientY-rect.top)/(rect.height||1))*2-1);
+    pTarget.set(x,y);
+  },{passive:true});
+
+  const clock=new THREE.Clock();
+  let rafId;
+  function loop(){
+    rafId=requestAnimationFrame(loop);
+    const dt=clock.getDelta();
+    const elapsed=clock.elapsedTime;
+    material.uniforms.uTime.value=elapsed;
+    const r=((CFG.rotation+CFG.autoRotate*elapsed)*Math.PI)/180;
+    material.uniforms.uRot.value.set(Math.cos(r),Math.sin(r));
+    pCurrent.lerp(pTarget,Math.min(1,dt*8));
+    material.uniforms.uPointer.value.copy(pCurrent);
+    renderer.render(scene,camera);
+  }
+  rafId=requestAnimationFrame(loop);
+
+  const heroEl=document.querySelector('.hero');
+  const pauseObs=new IntersectionObserver(([e])=>{
+    if(!e.isIntersecting){cancelAnimationFrame(rafId);clock.stop();}
+    else{clock.start();rafId=requestAnimationFrame(loop);}
+  },{threshold:0});
+  if(heroEl)pauseObs.observe(heroEl);
+})();
 
 /* ---------- card tilt ---------- */
 document.querySelectorAll('.card').forEach(card=>{
